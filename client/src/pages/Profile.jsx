@@ -10,7 +10,7 @@ function Profile() {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-  
+
 
   // firebase storage 
   /*
@@ -49,20 +49,20 @@ function Profile() {
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form className="flex flex-col gap-4">
         <input onChange={(e) => setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/.*' />
-        <img onClick={() => fileRef.current.click()} 
-        className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2" 
-        src={formData.avatar || currentUser.avatar} alt='profile' />
-        <p className='text-sm self-center'> 
+        <img onClick={() => fileRef.current.click()}
+          className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
+          src={formData.avatar || currentUser.avatar} alt='profile' />
+        <p className='text-sm self-center'>
           {fileUploadError ? (
             <span className='text-red-700'>Error Image Upload (image must be less than 2MB)</span>
-          ) : filePerc > 0 && filePerc < 100 ? 
-          (
-          <span className='text-slate-700'>
-            {`Uploading ${filePerc}%`} </span>
-          ) : filePerc === 100 ? (
+          ) : filePerc > 0 && filePerc < 100 ?
+            (
+              <span className='text-slate-700'>
+                {`Uploading ${filePerc}%`} </span>
+            ) : filePerc === 100 ? (
               <span className='text-green-700'>Image Successfully uploaded !</span>
-              ) : ('') 
-            }
+            ) : ('')
+          }
         </p>
         <input type="text" placeholder="username" className="border p-3 rounded-lg" id="username" />
         <input type="email" placeholder="email" className="border p-3 rounded-lg" id="email" />
