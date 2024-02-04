@@ -9,6 +9,7 @@ import {
   signOutUserStart, signInFailure, signInSuccess, signOutUserFailure, signOutUserSuccess
 } from '../redux/user/userSlice.js'
 import { useDispatch } from 'react-redux';
+import UpdateListing from './UpdateListing.jsx';
 
 function Profile() {
   const fileRef = useRef(null);
@@ -196,7 +197,9 @@ function Profile() {
               <div className = 'flex flex-col items-center'>
                 <button onClick = {() => handleListingDelete(listing._id)} 
                 className ='text-red-700 uppercase'>Delete</button>
-                <button className='text-green-700 uppercase'>Edit</button>
+                <Link to={`/update-listing/${listing._id}`}>
+                    <button className='text-green-700 uppercase'>Edit</button>
+                </Link>
               </div>
             </div>
           ))}
