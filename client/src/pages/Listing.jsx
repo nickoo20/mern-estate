@@ -4,6 +4,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
+import { useSelector } from 'react-redux' ;
+import Contact from '../components/Contact';
+
 import {
     FaBath,
     FaBed,
@@ -15,17 +18,19 @@ import {
 } from 'react-icons/fa';
 
 const Listing = () => {
+    const {currentUser} = useSelector(state => state.user) ;
     SwiperCore.use([Navigation]);
-    const [listing, setListing] = useState(null);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [copied, setCopied] = useState(false);
+    const [listing, setListing] = useState(null) ;
+    const [error, setError] = useState(false) ;
+    const [loading, setLoading] = useState(false) ;
+    const [copied, setCopied] = useState(false) ;
+    const[contact, setContact] = useState(false) ;
     const params = useParams();
     useEffect(() => {
         const fetchListing = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`/api/listing/get/${params.listingId}`);
+                const res = await fetch(`/api/listing/get/${params.listingId}`) ;
                 const data = await res.json();
                 if (data.success === false) {
                     setError(true);
@@ -40,7 +45,7 @@ const Listing = () => {
                 setLoading(false);
             }
         }
-        fetchListing();
+            fetchListing() ;
     }, [params.listingId])
     console.log(loading)
     return (
@@ -123,10 +128,17 @@ const Listing = () => {
                                     {listing.furnished ? 'Furnished' : 'Unfurnished'}
                                 </li>
                             </ul>
+                            {currentUser && listing.userRef !== currentUser._id && !contact && (
+                                <button onClick={() => setContact(true)} className='bg-slate-700 text-white uppercase rounded-lg hover:opacity-95 p-3'>
+                                    Contact Landlord
+                                </button>
+                            )}
+                            {
+                                contact && <Contact listing={listing}/>
+                            }
                         </div>
                     </div>
-                )
-            }
+                )}
         </main>
     )
 }
