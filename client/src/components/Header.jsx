@@ -24,35 +24,37 @@ function Header() {
     },[location.search])
 
     return (
-        <header className='bg-slate-200 shadow-md'>
-            <div className='flex justify-between items-center mx-auto max-w-6xl p-3'>
-                <Link to='/'>
-                    <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
-                        <span className='text-slate-500'>Real</span>
-                        <span className='text-slate-700'>Estate</span>
+        <header className='bg-[#EAD8C0] shadow-md pt-2'>
+            <div className='flex items-center justify-between p-2 sm:pl-12 gap-3'>
+            <Link to='/' className='flex items-center'>
+                    <h1 className='font-bold text-sm xl:text-xl flex uppercase shadow-xl border-none rounded-full p-2 tracking-tighter'>
+                        <span className='text-[#003C43]'>Nest</span>
+                        <span className='text-[#135D66]'>Nexus </span>
                     </h1>
-                </Link>
-                <form onSubmit={handleSubmit} className='bg-slate-100 p-3 rounded-lg flex items-center'>
+            </Link>
+            <div className='flex justify-between items-center max-w-6xl'>
+                <form onSubmit={handleSubmit} className='bg-[#FFF2E1] p-3 rounded-full flex items-center'>
                     <input type='text' placeholder='Search...'
-                        className='bg-transparent focus:outline-none w-24 sm:w-64'
+                        className='bg-transparent focus:outline-none w-20 sm:w-40 md:w-60 '
                         value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <button>
                         <FaSearch className='text-slate-600' />
                     </button>
                 </form>
-                <ul className='flex gap-4'>
-                    <Link to='/'><li className='hidden sm:inline text-slate-700 hover:underline'>Home</li></Link>
-                    <Link to='/about'><li className='hidden sm:inline text-slate-700 hover:underline'>About</li></Link>
+                <ul className='flex items-center gap-3 text-[#003C43] font-roboto md:ml-20 md:mr-8 xl:mr-20'>
+                    <Link to='/'><li className='hidden md:inline hover:bg-[#FEFDED] rounded-full p-2 hover:transition duration-900'>Home</li></Link>
+                    <Link to='/about'><li className='hidden md:inline hover:bg-[#FEFDED] rounded-full p-2 hover:transition duration-900'>About</li></Link>
                     <Link to='/profile'>
                         {
                             currentUser ? (
                                 <img className='rounded-full h-7 c-7 object-cover' src={currentUser.avatar} alt='profile' />
                             ) : (
-                                <li className='text-slate-700 hover:underline'>Sign in</li>
+                                <li className='hover:bg-[#FEFDED] rounded-full p-2'>Sign in</li>
                             )}
                     </Link>
                 </ul>
+            </div>
             </div>
         </header>
     )
