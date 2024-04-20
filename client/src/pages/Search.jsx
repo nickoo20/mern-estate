@@ -47,21 +47,22 @@ const Search = () => {
         }
 
         const fetchListings = async () => {
-            setLoading(true) ; 
-            setShowMore(false) ;
+            setLoading(true);
+            setShowMore(false);
             const searchQuery = urlParams.toString();
             const res = await fetch(`/api/listing/get?${searchQuery}`);
             const data = await res.json();
-            if (data.length > 8) {
+            if (data.length > 3) {
                 setShowMore(true);
-            }else{
-                setShowMore(false)  ;
+            } else {
+                setShowMore(false);
             }
             setListings(data);
             setLoading(false);
-        }
-        fetchListings();
-    }, [location.search]);
+            };
+
+            fetchListings();
+        }, [location.search]);
 
 
 
@@ -111,19 +112,17 @@ const Search = () => {
     }
 
     const onShowMoreClick = async(e) => {
-        const numberOfListings = listings.length ;
-        const startIndex=numberOfListings; 
-        const urlParams= new URLSearchParams(location.search) ;
-        urlParams.set('startIndex', startIndex); 
-        const searchQuery = urlParams.toString() ;
-        const res= await fetch(`/api/listing/get?${searchQuery}`) ;
-        const data= await res.json() ;
-        if(data.length < 9) {
-            setShowMore(false) ; 
+        const numberOfListings = listings.length;
+        const startIndex = numberOfListings;
+        const urlParams = new URLSearchParams(location.search);
+        urlParams.set('startIndex', startIndex);
+        const searchQuery = urlParams.toString();
+        const res = await fetch(`/api/listing/get?${searchQuery}`);
+        const data = await res.json();
+        if (data.length < 4) {
+        setShowMore(false);
         }
-        setListings([
-            ...listings, ...data 
-        ]) ;
+        setListings([...listings, ...data]);
     }
 
     return (
@@ -132,58 +131,61 @@ const Search = () => {
                 <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
                     <div className='flex items-center gap-2'>
                         <label className='whitespace-nowrap font-semibold '>Search Term :</label>
-                        <input type='text' id='searchTerm' placeholder='Search....' className='border rounded-lg p-3 w-full'
+                        <input type='text' id='searchTerm' placeholder='Search....' className='border bg-[#F6F5F2] rounded-lg  p-3 w-full'
                             onChange={handleChange} value={sidebardata.searchTerm} />
                     </div>
                     <div className='flex gap-2 flex-wrap items-center'>
                         <label className='font-semibold'>Type :</label>
                         <div className='flex gap-2'>
-                            <input type='checkbox' id='all' className='w-5' onChange={handleChange} checked={sidebardata.type === 'all'} />
+                            <input type='checkbox' id='all' className='w-5 bg-[#F6F5F2]' onChange={handleChange} checked={sidebardata.type === 'all'} />
                             <span>Rent & Sale</span>
                         </div>
                         <div className='flex gap-2'>
-                            <input type='checkbox' id='rent' className='w-5' onChange={handleChange} checked={sidebardata.type === 'rent'} />
+                            <input type='checkbox' id='rent' className='w-5 bg-[#F6F5F2]' onChange={handleChange} checked={sidebardata.type === 'rent'} />
                             <span>Rent</span>
                         </div>
                         <div className='flex gap-2'>
-                            <input type='checkbox' id='sale' className='w-5' onChange={handleChange} checked={sidebardata.type === 'sale'} />
+                            <input type='checkbox' id='sale' className='w-5 bg-[#F6F5F2]' onChange={handleChange} checked={sidebardata.type === 'sale'} />
                             <span>Sale</span>
                         </div>
                         <div className='flex gap-2'>
-                            <input type='checkbox' id='offer' className='w-5' onChange={handleChange} checked={sidebardata.offer} />
+                            <input type='checkbox' id='offer' className='w-5 bg-[#F6F5F2]' onChange={handleChange} checked={sidebardata.offer} />
                             <span>Offer</span>
                         </div>
                     </div>
                     <div className='flex gap-2 flex-wrap items-center'>
                         <label className='font-semibold'>Amenties :</label>
                         <div className='flex gap-2'>
-                            <input type='checkbox' id='parking' className='w-5' onChange={handleChange} checked={sidebardata.parking} />
+                            <input type='checkbox' id='parking' className='w-5 bg-[#F6F5F2]' onChange={handleChange} checked={sidebardata.parking} />
                             <span>Parking</span>
                         </div>
                         <div className='flex gap-2'>
-                            <input type='checkbox' id='furnished' className='w-5' onChange={handleChange} checked={sidebardata.furnished} />
+                            <input type='checkbox' id='furnished' className='w-5 bg-[#F6F5F2]' onChange={handleChange} checked={sidebardata.furnished} />
                             <span>Furnished</span>
                         </div>
                     </div>
                     <div className='flex items-center gap-2'>
                         <label className='font-semibold'>Sort:</label>
-                        <select id='sort_order' className='border rounded-lg p-3' onChange={handleChange} defaultValue={'created_at_desc'}>
+                        <select id='sort_order' className='border rounded-lg p-3 bg-[#F6F5F2]' onChange={handleChange} defaultValue={'created_at_desc'}>
                             <option value='regularPrice_desc'>Price high to low</option>
                             <option value='regularPrice_asc'>Price low to high</option>
                             <option value='createdAt_desc'>Latest</option>
                             <option value='createdAt_asc'>Oldest</option>
                         </select>
                     </div>
-                    <button className='bg-slate-700 p-3 rounded-lg uppercase hover:opacity-95 text-white'>Search</button>
+                    <button className='bg-[#1679AB] w-[200px] p-2 rounded-full uppercase hover:opacity-95 text-white'>Search</button>
                 </form>
             </div>
             <div className="flex-1">
-                <h1 className='font-semibold text-3xl border-b p-3 mt-5'>
-                    Listing Results
+                <h1 className='font-semibold text-purple-800 text-3xl text-center border-b p-3 mt-5'>
+                    Listing Results !!
                 </h1>
                 <div className="p-7 flex flex-wrap gap-4">
                     {!loading && listings.length === 0 && (
-                        <p className="text-xl text-slate-700">No Listing Found!</p>
+                        <div className="flex flex-col gap-4">
+                        <p className="text-2xl font-semibold text-red-700">No Listing Found!</p>
+                        <p className="text-orange-700 italic">Try searching something else !</p>
+                        </div>
                     )}
                     {loading && (
                         <p className="text-xl text-slate-700 text-center w-full">Loading...</p>

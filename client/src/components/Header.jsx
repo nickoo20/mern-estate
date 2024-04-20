@@ -16,12 +16,12 @@ function Header() {
     }
 
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search) ;
-        const searchTermFromUrl=urlParams.get('searchTerm') ;
-        if(searchTermFromUrl){
-            setSearchTerm(searchTermFromUrl) ;
-        }
-    },[location.search])
+        const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
 
     return (
         <header className='bg-[#EAD8C0] shadow-md pt-2'>
@@ -50,7 +50,7 @@ function Header() {
                             currentUser ? (
                                 <img className='rounded-full h-7 c-7 object-cover' src={currentUser.avatar} alt='profile' />
                             ) : (
-                                <li className='hover:bg-[#FEFDED] rounded-full p-2'>Sign in</li>
+                                <li className='hover:bg-[#FEFDED] rounded-full p-2'>Sign</li>
                             )}
                     </Link>
                 </ul>

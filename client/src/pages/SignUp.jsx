@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
+import toast from 'react-hot-toast';
 
 function SignUp() {
   const [formData, setFormData] = useState({});
@@ -10,7 +11,7 @@ function SignUp() {
 
   const handleChange = (e) => {
     setFormData({
-      ...formData,
+      ...formData, 
       [e.target.id]: e.target.value,
     });
   };
@@ -27,31 +28,33 @@ function SignUp() {
       });
       const data = await res.json();
       console.log(data);
-      if (data.success === false) {
+      if (!res.ok) {
+        toast.error(data.message) ; 
         setLoading(false);
-        setError(data.message)
+        setError(data.message);
         return;
       }
       setLoading(false);
       setError(null);
+      toast.success(data) ;
       navigate('/sign-in');
-
     } catch (error) {
+      toast.error(error.message) ;  
       setLoading(false);
       setError(error.message);
     }
   }
-  console.log(formData);
+  // console.log(formData);
   return (
     <div className='flex flex-col md:flex-row justify-evenly items-center mt-12'>
       <img src='https://media.istockphoto.com/id/1498811925/photo/real-estate-agent-or-real-estate-agent-was-holding-the-key-to-the-new-landlord-tenant-or.webp?b=1&s=170667a&w=0&k=20&c=llN8VkgxCJN89WHiL3yByIiQ7HlWSEaHvpTMV_g5Y9U=' alt='prop' className='rounded-md sm:h-1/4 p-2 shadow-2xl '/>
     <div className='p-3'>
     <h1 className='text-2xl uppercase tracking-wide underline font-semibold my-7 text-[#135D66]'>Register Now !</h1>
-      <h2 className='text-2xl text-[#003C43] text-center my-4'>Sign Up</h2>
+      <h2 className='text-2xl text-[#135D66] text-center my-4'>Sign Up</h2>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-        <input type='text' placeholder='username' className='border p-3 rounded-lg' id='username' onChange={handleChange} />
-        <input type='text' placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChange} />
-        <input type='text' placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChange} />
+        <input type='text' placeholder='Enter username' className='border p-3 rounded-lg' id='username' onChange={handleChange} />
+        <input type='text' placeholder='Enter email' className='border p-3 rounded-lg' id='email' onChange={handleChange} />
+        <input type='text' placeholder='Enter password' className='border p-3 rounded-lg' id='password' onChange={handleChange} />
         <button disabled={loading}
           className='bg-[#135D66] text-[#E3FEF7] p-3 rounded-lg uppercase hover:opacity-75 disabled:opacity-80'>
           {loading ? 'Loading...' : 'Sign up'}</button>
@@ -60,9 +63,9 @@ function SignUp() {
       <div className='flex gap-2 mt-5'>
         <p>Have an account?</p>
         <Link to={'/sign-in'}>
-          <span className='text-blue-700'>Sign in</span></Link>
+          <span className='text-blue-700 hover:underline'>Sign in</span></Link>
       </div>
-      {error && <p className='text-red-500 mt-5'>{error}</p>}
+      {/* {error && <p className='text-red-500 mt-5'>{error}</p>} */}
     </div>
     </div>
   )

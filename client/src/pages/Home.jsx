@@ -86,8 +86,8 @@ function Home() {
           offerListings && offerListings.length > 0 && (
             <div>
               <div className="my-3">
-                <h2 className="text-2xl font-semibold text-slate-600">Recent Offers</h2>
-                <Link className="text-sm text-blue-800 hover:underline" to={'/search?offer=true'}>Show More Offers</Link>
+                <h2 className="text-2xl tracking-wide font-semibold text-slate-600">Recent <span className="text-red-700">Offers </span> </h2>
+                <Link className="text-sm text-blue-800 underline" to={'/search?offer=true'}>Show More Offers</Link>
               </div>
               <div className="flex flex-wrap gap-4">{
                   offerListings.map((listing)=>(
@@ -104,7 +104,7 @@ function Home() {
           rentListings && rentListings.length > 0 && (
             <div>
               <div className="my-3">
-                <h2 className="text-2xl font-semibold text-slate-600">Recent places for Rent</h2>
+                <h2 className="text-2xl font-semibold text-slate-600">Recent places for <span className="text-purple-700">Rent</span></h2>
                 <Link className="text-sm text-blue-800 hover:underline" to={'/search?offer=true'}>Show more places rent</Link>
               </div>
               <div className="flex flex-wrap gap-4">{
@@ -122,7 +122,7 @@ function Home() {
           saleListings && saleListings.length > 0 && (
             <div>
               <div className="my-3">
-                <h2 className="text-2xl font-semibold text-slate-600">Recent places for Sale</h2>
+                <h2 className="text-2xl font-semibold text-slate-600">Recent places for <span className="text-green-700">Sale</span></h2>
                 <Link className="text-sm text-blue-800 hover:underline" to={'/search?offer=true'}>Show more places for sale</Link>
               </div>
               <div className="flex flex-wrap gap-4">{
